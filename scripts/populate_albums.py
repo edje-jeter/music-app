@@ -20,7 +20,8 @@ artists_in_db = Artists.objects.all()
 for artist in artists_in_db:
     print "=============================================================="
     albums_url = "https://freemusicarchive.org/api/get/albums.json?api_key=GHPJJTZVUKT1DZB1&artist_id="
-    url_w_artist_id = str(albums_url) + str(artist.artist_id)
+    current_artist_id = str(artist.artist_id)
+    url_w_artist_id = str(albums_url) + current_artist_id
     print url_w_artist_id
     response = requests.get(url_w_artist_id)
     response_dict = response.json()
@@ -28,18 +29,11 @@ for artist in artists_in_db:
     for data in response_dict['dataset']:
         new_album, created = Albums.objects.get_or_create(album_id=int(data.get('album_id')))
 
-        if data.get('album_artist_id') != None:
-            new_album.album_artist_id = int(unidecode(data.get('album_artist_id')))
-
         if data.get('album_title') != None:
             new_album.album_title = str(unidecode(data.get('album_title')))
 
         if data.get('album_handle') != None:
             new_album.album_handle = str(data.get('album_handle'))
-
-        current_album_artist_name = ""
-        if data.get('album_artist_name') != None:
-            current_album_artist_name = str(unidecode(data.get('album_artist_name')))
 
         if data.get('album_producer') != None:
             new_album.album_producer = str(unidecode(data.get('album_producer')))
@@ -60,6 +54,11 @@ for artist in artists_in_db:
             new_album.album_image_file = File(temp_image)
         except Exception, e:
             print e
+
+        try:
+            new_album.album_artist_id = Artists.objects.get(artist_id=current_artist_id)
+        except Exception, e:
+            new_album.album_artist_id = None
 
         # try:
         #     album_artist_object, created = Artists.objects.get_or_create(artist_name=current_album_artist_name)

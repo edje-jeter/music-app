@@ -3,14 +3,19 @@ import os
 import sys
 import requests
 from unidecode import unidecode
+from PIL import Image
+from StringIO import StringIO
 
 sys.path.append("..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
+import django
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
+
 from main.models import Artists
 
-
-response = requests.get('https://freemusicarchive.org/api/get/artists.json?api_key=GHPJJTZVUKT1DZB1&limit=500')
+response = requests.get('https://freemusicarchive.org/api/get/artists.json?api_key=GHPJJTZVUKT1DZB1&limit=100')
 
 response_dict = response.json()
 
@@ -35,19 +40,19 @@ for data in response_dict['dataset']:
     if data.get('artist_wikipedia_page') != None:
         new_artist.artist_wikipedia_page = str(unidecode(data.get('artist_wikipedia_page')))
 
-    if data.get('artist_location') != None:
-        new_artist.artist_location = str(unidecode(data.get('artist_location')))
+    try:
+        new_artist_image = requests.get(data.get('artist_image_file'))
+        temp_image = NamedTemporaryFile(delete=True)
+        temp_image.write(new_artist_image.content)
+        new_artist.artist_image_file = File(temp_image)
+    except Exception, e:
+        print e
 
-    if data.get('artist_active_year_begin') != None:
-        new_artist.artist_active_year_begin = int(data.get('artist_active_year_begin'))
-
-    if data.get('artist_active_year_end') != None:
-        new_artist.artist_active_year_end = int(data.get('artist_active_year_end'))
-
-    if data.get('artist_image_file') != None:
-        new_artist.artist_image_file = str(data.get('artist_image_file'))
-
-    # new_artist.artist_images = data['artist_images']
-
-    print data['artist_id']
+    print new_artist.artist_name
     new_artist.save()
+
+# try:
+#     album_artist_object, created = Artists.objects.get_or_create(artist_name=current_album_artist_name)
+#     new_album.album_artist_id = album_artist_object
+# except Exception, e:
+#     print e

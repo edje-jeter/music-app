@@ -34,7 +34,8 @@ class Albums(models.Model):
     album_date_released = models.CharField(max_length=255, null=True, blank=True)
     album_tracks = models.IntegerField(null=True, blank=True)
     album_image_file = models.CharField(max_length=255, null=True, blank=True)
-    album_artist_id_obj = models.ForeignKey('main.Artists', null=True, blank=True)
+    # album_artist_id = models.IntegerField(null=True, blank=True)
+    album_artist_id = models.ForeignKey('main.Artists', null=True, blank=True)
 
     # Jeff says call album_artist_id ==> album_artist because...
     # 1. ForeignKey turns it into an object rather than just a integer ID; and
@@ -53,8 +54,9 @@ class Tracks(models.Model):
     track_duration = models.CharField(max_length=255, null=True, blank=True)
     track_number = models.CharField(max_length=255, null=True, blank=True)
     track_image_file = models.CharField(max_length=255, null=True, blank=True)
-    track_artist_id_obj = models.ManyToManyField('main.Artists', blank=True)
+    track_artist_id_obj = models.ForeignKey('main.Artists', null=True, blank=True)
     track_album_id_obj = models.ForeignKey('main.Albums', null=True, blank=True)
+    track_genre_id_obj = models.ForeignKey('main.Genres', null=True, blank=True)
 
     def __unicode__(self):
         return self.track_title
