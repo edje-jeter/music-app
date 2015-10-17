@@ -54,9 +54,9 @@ class Tracks(models.Model):
     track_duration = models.CharField(max_length=255, null=True, blank=True)
     track_number = models.CharField(max_length=255, null=True, blank=True)
     track_image_file = models.CharField(max_length=255, null=True, blank=True)
-    track_artist_id_obj = models.ForeignKey('main.Artists', null=True, blank=True)
-    track_album_id_obj = models.ForeignKey('main.Albums', null=True, blank=True)
-    track_genre_id_obj = models.ForeignKey('main.Genres', null=True, blank=True)
+    track_artist_id = models.ForeignKey('main.Artists', null=True, blank=True)
+    track_album_id = models.ForeignKey('main.Albums', null=True, blank=True)
+    track_genre_id = models.ManyToManyField('main.Genres')
 
     def __unicode__(self):
         return self.track_title

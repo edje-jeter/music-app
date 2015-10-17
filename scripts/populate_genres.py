@@ -9,7 +9,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 from main.models import Genres
 
 
-response = requests.get('https://freemusicarchive.org/api/get/genres.json?api_key=GHPJJTZVUKT1DZB1')
+response = requests.get('https://freemusicarchive.org/api/get/genres.json?api_key=GHPJJTZVUKT1DZB1&limit=200')
 
 response_dict = response.json()
 
