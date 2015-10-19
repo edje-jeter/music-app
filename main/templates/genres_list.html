@@ -1,18 +1,18 @@
-{{ object_list }}
+
 
 <br><br>
 <!-- custom context name -->
 {% for genre in genres %}
 
-{{ genre.genre_title }}<br>
+<a href="/genres_detail/{{ genre.genre_handle }}/">{{ genre.genre_title }}</a><br>
 
 {% endfor %}
 
-
-
 <!-- default context name -->
+{% comment %}
 {% for object in object_list %}
 
 <a href="/genres_detail/{{ object.genre_handle }}/">{{ object.genre_title }}</a><br>
 
 {% endfor %}
+{% endcomment %}

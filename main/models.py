@@ -19,7 +19,7 @@ class Artists(models.Model):
     artist_members = models.TextField(null=True, blank=True)
     artist_website = models.CharField(max_length=255, null=True, blank=True)
     artist_wikipedia_page = models.CharField(max_length=255, null=True, blank=True)
-    artist_image_file = models.CharField(max_length=255, null=True, blank=True)
+    artist_image_file = models.ImageField(upload_to="artist_images", null=True, blank=True)
 
     def __unicode__(self):
         return self.artist_name
@@ -33,7 +33,7 @@ class Albums(models.Model):
     album_engineer = models.CharField(max_length=255, null=True, blank=True)
     album_date_released = models.CharField(max_length=255, null=True, blank=True)
     album_tracks = models.IntegerField(null=True, blank=True)
-    album_image_file = models.CharField(max_length=255, null=True, blank=True)
+    album_image_file = models.ImageField(upload_to="album_images", null=True, blank=True)
     # album_artist_id = models.IntegerField(null=True, blank=True)
     album_artist_id = models.ForeignKey('main.Artists', null=True, blank=True)
 
@@ -53,7 +53,7 @@ class Tracks(models.Model):
     track_url = models.CharField(max_length=255, null=True, blank=True)
     track_duration = models.CharField(max_length=255, null=True, blank=True)
     track_number = models.CharField(max_length=255, null=True, blank=True)
-    track_image_file = models.CharField(max_length=255, null=True, blank=True)
+    track_image_file = models.ImageField(upload_to="track_images", null=True, blank=True)
     track_artist_id = models.ForeignKey('main.Artists', null=True, blank=True)
     track_album_id = models.ForeignKey('main.Albums', null=True, blank=True)
     track_genre_id = models.ManyToManyField('main.Genres')

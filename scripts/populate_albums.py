@@ -10,11 +10,14 @@ sys.path.append("..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
 import django
+django.setup()
+
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 
-from main.models import Genres, Artists, Albums
+from main.models import Genres, Artists, Albums, Tracks
 
+Albums.objects.all().delete()
 artists_in_db = Artists.objects.all()
 
 for artist in artists_in_db:
@@ -51,7 +54,8 @@ for artist in artists_in_db:
             new_album_image = requests.get(data.get('album_image_file'))
             temp_image = NamedTemporaryFile(delete=True)
             temp_image.write(new_album_image.content)
-            new_album.album_image_file = File(temp_image)
+            img_name = "%s_album_img.jpg" % new_album.album_handle
+            new_album.album_image_file.save(img_name, File(temp_image))
         except Exception, e:
             print e
 
