@@ -1,4 +1,55 @@
-Genre: {{ genres.genre_title }}<br>
-Genre Handle: {{ genres.genre_handle }}<br>
-Genre ID: {{ genres.genre_id }}<br>
-Genre Parent ID: {{ genres.genre_parent_id }}<br>
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="box">
+
+                <div class="col-lg-12">
+                    <h1 class="page-header text-center">
+                        <strong>{{ artists.artist_name }}</strong>
+                    </h1>
+                </div>
+
+                <div>
+
+                    Genre: {{ genres.genre_title }}<br>
+                    Genre Handle: {{ genres.genre_handle }}<br>
+                    Genre ID: {{ genres.genre_id }}<br>
+                    Genre Parent ID: {{ genres.genre_parent_id }}<br>
+                    <br>
+                </div>
+                <div>
+                    {% for track in genres.tracks_set.all %}
+                        <div class="container
+                                    col-lg-3
+                                    col-md-4
+                                    col-xs-6">
+                            <a class="thumbnail text-center" 
+                               href="/tracks_detail/{{ track.track_id }}/">
+                                <p>{{ track }}</p>
+                            </a>
+                        </div>
+
+                    {% endfor %}
+                </div>
+                <div class="col-lg-6 col-lg-offset-0
+                            col-md-6 col-md-offset-0
+                            col-sm-6 col-sm-offset-0
+                            col-xs-6 col-xs-offset-0
+                            "
+                     style="text-align: center">
+                    <a class="btn btn-primary text-center" 
+                       href="/genres_list/"
+                       role="button">
+                            Return to List of Genres
+                    </a>
+
+                </div>
+            </div><!-- /.box -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+
+{% endblock body %}

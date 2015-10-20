@@ -6,10 +6,14 @@ from unidecode import unidecode
 from PIL import Image
 from StringIO import StringIO
 
+# go up one level to get settings.py
 sys.path.append("..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
+# now that we know where settings.py is, we can get other things
+# django.setup() gets us better error messages
 import django
+from django.conf import settings
 django.setup()
 
 from django.core.files import File
@@ -22,6 +26,8 @@ artists_in_db = Artists.objects.all()
 
 for artist in artists_in_db:
     print "=============================================================="
+    # param_dict = {'api_key': settings.FMAKEY, 'limit': 100, 'artist_id': artist.artist_id}
+    # albums_url = "https://freemusicarchive.org/api/get/albums.json, params=param_dict"
     albums_url = "https://freemusicarchive.org/api/get/albums.json?api_key=GHPJJTZVUKT1DZB1&artist_id="
     current_artist_id = str(artist.artist_id)
     url_w_artist_id = str(albums_url) + current_artist_id

@@ -9,15 +9,21 @@
 
                 <div class="col-lg-12">
                     <h1 class="page-header text-center">
-                        <strong>Artists in Database</strong>
+                        <strong>Genres in Database</strong>
                     </h1>
                 </div>
                 <div>
                     <!-- custom context name -->
                     {% for genre in genres %}
-
-                    <a href="/genres_detail/{{ genre.genre_handle }}/">{{ genre.genre_title }}</a><br>
-
+                        <div class="container
+                                    col-lg-2
+                                    col-md-3
+                                    col-xs-4">
+                            <a class="thumbnail" 
+                               href="/genres_detail/{{ genre.genre_handle }}/">
+                                <p>{{ genre.genre_title }}</p>
+                            </a>
+                        </div>
                     {% endfor %}
                 </div>
             </div><!-- /.box -->

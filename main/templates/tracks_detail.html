@@ -1,10 +1,50 @@
+{% extends 'base.html' %}
 
-Track ID: {{ tracks.track_id }}<br>
-Track Title: {{ tracks.track_title }}<br>
-Track URL: {{ tracks.track_url }}<br>
-Track Duration: {{ tracks.track_duration }}<br>
-Track Number: {{ tracks.track_number }}<br>
-Track Image File: {{ tracks.track_image_file }}<br>
-Track Artist ID: {{ tracks.track_artist_id }}<br>
-Track Album ID: {{ tracks.track_album_id }}<br>
-Track Genre ID: {{ tracks.track_genre_id }}<br>
+{% block body %}
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="box">
+
+                <div class="col-lg-12">
+                    <h1 class="page-header text-center">
+                        <strong>{{ artists.artist_name }}</strong>
+                    </h1>
+                </div>
+
+                <div>
+                    Track ID: {{ tracks.track_id }}<br>
+                    Track Title: {{ tracks.track_title }}<br>
+                    Track URL: {{ tracks.track_url }}<br>
+                    Track Duration: {{ tracks.track_duration }}<br>
+                    Track Number: {{ tracks.track_number }}<br>
+                    Track Image File: {{ tracks.track_image_file }}<br>
+                    Track Artist ID: {{ tracks.track_artist_id }}<br>
+                    Track Album ID: {{ tracks.track_album_id }}<br>
+                    Track Genre ID: {{ tracks.track_genre_id }}<br>
+                    <br>
+                </div>
+                <div class="col-lg-6 col-lg-offset-0
+                            col-md-6 col-md-offset-0
+                            col-sm-6 col-sm-offset-0
+                            col-xs-6 col-xs-offset-0
+                            "
+                     style="text-align: center">
+                    <a class="btn btn-primary text-center" 
+                       href="/artists_detail/{{ tracks.track_artist_id.artist_handle }}"
+                       role="button">
+                            Go to Artist Page
+                    </a>
+                    <a class="btn btn-primary text-center" 
+                       href="/genres_list/"
+                       role="button">
+                            Return to List of Tracks
+                    </a>
+
+                </div>
+            </div><!-- /.box -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+
+{% endblock body %}

@@ -14,12 +14,15 @@
                 </div>
                 <div>
                     {% for artist in artists %}
-
-                        <a href="/artists_detail/{{ artist.artist_handle }}/">
-                            {{ artist.artist_name }}
-                        </a>
-                        <br>
-
+                        <div class="container 
+                                    col-lg-2
+                                    col-md-3
+                                    col-xs-4">
+                            <a class="thumbnail"
+                               href="/artists_detail/{{ artist.artist_handle }}/">
+                                <p>{{ artist.artist_name }}</p>
+                            </a>
+                        </div>
                     {% endfor %}
                 </div>
             </div><!-- /.box -->
