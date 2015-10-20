@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="box">
+
+                <div class="col-lg-12">
+                    <h1 class="page-header text-center">
+                        {{ albums.album_artist_id }}: <strong>{{ albums.album_title }}</strong>
+                    </h1>
+                </div>
+
+                <div>
+
+                    Album ID: {{ albums.album_id }}<br>
+                    Album Title: {{ albums.album_title }}<br>
+                    Album Handle: {{ albums.album_handle }}<br>
+                    Album Producer: {{ albums.album_producer }}<br>
+                    Album Engineer: {{ albums.album_engineer }}<br>
+                    Album Date Released: {{ albums.album_date_released }}<br>
+                    Album Tracks: {{ albums.album_tracks }}<br>
+                    Album Image File: {{ albums.album_image_file }}<br>
+                    Album Artist: {{ albums.album_artist_id }}<br>
+
+                    <img class="col-lg-4
+                                col-md-4
+                                col-sm-6
+                                col-xs-12"
+                         src="{{ albums.album_image_file.url }}"
+                         alt="testing"
+                         height="300"><br><br>
+                </div>
+                <div class="col-lg-6 col-lg-offset-0
+                            col-md-6 col-md-offset-0
+                            col-sm-6 col-sm-offset-0
+                            col-xs-6 col-xs-offset-0
+                            "
+                     style="text-align: center">
+                    <a class="btn btn-primary text-center" 
+                       href="/artists_detail/{{ albums.album_artist_id.artist_handle }}"
+                       role="button">
+                            Go to Artist Page
+                    </a>
+                    <a class="btn btn-primary text-center" 
+                       href="/albums_list/"
+                       role="button">
+                            Return to Album List
+                    </a>
+
+                </div>
+            </div><!-- /.box -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+
+{% endblock body %}

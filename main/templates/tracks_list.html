@@ -9,14 +9,16 @@
 
                 <div class="col-lg-12">
                     <h1 class="page-header text-center">
-                        <strong>Artists in Database</strong>
+                        <strong>Tracks in Database</strong>
                     </h1>
                 </div>
                 <div>
-                    <!-- custom context name -->
-                    {% for genre in genres %}
+                    {% for track in tracks %}
 
-                    <a href="/genres_detail/{{ genre.genre_handle }}/">{{ genre.genre_title }}</a><br>
+                        <a href="/tracks_detail/{{ track.track_id }}/">
+                            {{ track.track_title }}
+                        </a>
+                        <br>
 
                     {% endfor %}
                 </div>
@@ -24,15 +26,4 @@
         </div><!-- /.row -->
     </div><!-- /.container -->
 
-
 {% endblock body %}
-
-
-<!-- default context name -->
-{% comment %}
-{% for object in object_list %}
-
-<a href="/genres_detail/{{ object.genre_handle }}/">{{ object.genre_title }}</a><br>
-
-{% endfor %}
-{% endcomment %}

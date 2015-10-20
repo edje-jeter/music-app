@@ -6,6 +6,12 @@ from django.views.generic.edit import CreateView
 from main.models import Genres, Artists, Albums, Tracks
 
 
+# ---- About page; uses Genres model as a placeholder ------------------
+class AboutView(ListView):
+    model = Genres
+    template_name = 'about.html'
+
+
 # ---- models.py Genres -----------------------------
 class GenreListView(ListView):
     model = Genres

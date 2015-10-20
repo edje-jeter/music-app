@@ -13,10 +13,12 @@
                     </h1>
                 </div>
                 <div>
-                    <!-- custom context name -->
-                    {% for genre in genres %}
+                    {% for artist in artists %}
 
-                    <a href="/genres_detail/{{ genre.genre_handle }}/">{{ genre.genre_title }}</a><br>
+                        <a href="/artists_detail/{{ artist.artist_handle }}/">
+                            {{ artist.artist_name }}
+                        </a>
+                        <br>
 
                     {% endfor %}
                 </div>
@@ -26,13 +28,3 @@
 
 
 {% endblock body %}
-
-
-<!-- default context name -->
-{% comment %}
-{% for object in object_list %}
-
-<a href="/genres_detail/{{ object.genre_handle }}/">{{ object.genre_title }}</a><br>
-
-{% endfor %}
-{% endcomment %}

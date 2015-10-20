@@ -7,6 +7,7 @@ from main import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^genres_list/$', views.GenreListView.as_view()),
     # url(r'^genres_detail/(?P<pk>\d+)/$', views.GenreDetailView.as_view()),
     url(r'^genres_detail/(?P<slug>.+)/$', views.GenreDetailView.as_view()),
@@ -23,6 +24,8 @@ urlpatterns = [
     url(r'^tracks_list/$', views.TrackListView.as_view()),
     url(r'^tracks_detail/(?P<slug>.+)/$', views.TrackDetailView.as_view()),
     url(r'^tracks_create/$', views.TrackCreateView.as_view()),
+
+    url(r'^about/$', views.AboutView.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
