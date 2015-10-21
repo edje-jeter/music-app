@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+    <div class="container">
+        <!-- Return results of music search bar in base.html -->
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-1 
+                        col-md-5 col-md-offset-1 
+                        col-sm-8 col-sm-offset-2
+                        col-xs-12 col-sm-offset-0
+                       "
+                 style="color:#FFF" 
+            >
+                <hr>
+                    <h2 class="intro-text text-center" style="color:#FFF">
+                    Search results for: <strong> search test... </strong>
+                    </h2>
+                <hr>
+
+                {% for artist in artists_search_res %}
+                    <h4> {{ artist.artist_name }} </h4>
+                {% endfor %}
+
+                {% for album in albums_search_res %}
+                    <h4> {{ album.album_title }} </h4>
+                {% endfor %}
+
+                {% for track in tracks_search_res %}
+                    <h4> {{ track.track_title }} </h4>
+                {% endfor %}
+                
+                {% for genre in genres_search_res %}
+                    <h4> {{ genre.genre_title }} </h4>
+                {% endfor %}
+
+                </br>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
