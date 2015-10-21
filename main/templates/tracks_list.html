@@ -15,8 +15,8 @@
                 <div>
                     {% for track in tracks %}
 
-                        <a href="/tracks_detail/{{ track.track_id }}/">
-                            {{ track.track_title }}
+                        <a href="/tracks_detail/{{ track.track_id }}/"> 
+                            {{ track.track_title }} ({{ track.track_artist_id.artist_name }})
                         </a>
                         <br>
 

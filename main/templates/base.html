@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +66,16 @@
                         <a href="/tracks_list/">Tracks</a>
                     </li>
                     <li>
-                        <a href="#">*Contact</a>
+                        {% if user.is_anonymous %}
+                            <a href="{% url 'login_view' %}">Login</a>
+                        {% else %}
+                            <a href="{% url 'logout_view' %}?next=/">Logout: {{ user }}</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        <div id="search_form">
+                            {% crispy search_form %}
+                        </div>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->

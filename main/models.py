@@ -8,6 +8,31 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 
 
+class CustomUserManager(BaseUserManager):
+    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
+        now = timezone.now()
+        if not email:
+            raise ValueError("Email must be set")
+        email = self.normalize_email(email)
+        user = self.model(email=email,
+                          is_staff=is_staff,
+                          is_active=True,
+                          is_superuser=is_superuser,
+                          last_login=now,
+                          date_joined=now,
+                          **extra_fields
+                          )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, password=None, **extra_fields):
+        return self._create_user(email, password, False, False, **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        return self._create_user(email, password, True, True, **extra_fields)
+
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('email address', max_length=255, unique=True)
     first_name = models.CharField('first name', max_length=30, blank=True, null=True)
@@ -36,31 +61,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
-
-
-class CustomUserManager(BaseUserManager):
-    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
-        now = timezone.now()
-        if not email:
-            raise ValueError("Email must be set")
-        email = self.normalize_email(email)
-        user = self.model(email=email,
-                          is_staff=is_staff,
-                          is_active=True,
-                          is_superuser=is_superuser,
-                          last_login=now,
-                          date_joined=now,
-                          **extra_fields
-                          )
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_user(self, email, password=None, **extra_fields):
-        return self._create_user(email, password, False, False, **extra_fields)
-
-    def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password, True, True, **extra_fields)
 
 
 class Genres(models.Model):
